@@ -414,6 +414,7 @@ ngx_http_upstream_get_consistent_hash_peer(ngx_peer_connection_t *pc,
             pc->tries--;
         }
 
+        return NGX_ERROR; // Disable failover to a different memcached server -- avoids stale data
         if (++uchpd->tries >= 20) {
             return uchpd->get_rr_peer(pc, &uchpd->rrp);
         }
